@@ -12,7 +12,7 @@ object Tree {
 	// Ex 26: maximun - return the maximun element in a Tree[Int]
 	def maximum(tree: Tree[Int]): Int = tree match {
 		case Leaf(v) => v
-		case Branch(l, r) => maximum(l) max (maximum(r))
+		case Branch(l, r) => maximum(l) max maximum(r)
 	}
 
 	// Ex 27: depth - maximum path length from the root of a tree to any leaf 
