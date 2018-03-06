@@ -60,4 +60,21 @@ object Option {
 	def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = 
 		a.flatMap(av => (b.map(bv => f(av, bv))))
 
+	// Ex 5: combine a list of Options into one Option
+	// containing a list of all the Some values in the original list
+	def sequence[A](xs: List[Option[A]]): Option[List[A]] = xs match {
+		case List() => Some(List())
+		case h :: t => h.flatMap(hv => sequence(t).map(hv :: _))
+	}
+
+	// Ex 6: implement traverse
+	def traverse[A, B](xs: List[A])(f: A => Option[B]): Option[List[B]] = xs match {
+		case List() => Some(List())
+		case h :: t => f(h).flatMap(fhv => traverse(t)(f).map(fhv :: _))
+	}
+
+	// Using the above implementation, if we implement sequence in term of traverse
+	// we need a function f such that f(h) = h, so the function is x => x
+	def traverseSequence[A](xs: List[Option[A]]): Option[List[A]] = 
+		traverse(xs)(x => x)
 }
