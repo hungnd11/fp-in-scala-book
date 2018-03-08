@@ -18,7 +18,7 @@ sealed trait Option[+A] {
 	}
 
 	// Implement flatMap, orElse with map and getOrElse
-	// flatMap = flatten it then map (wrap it) 
+	// flatMap = map then flatten
 	def flatMap[B](f: A => Option[B]): Option[B] = this.map(f).getOrElse(None)
 
 	// orElse return the first Option if it is defined, otherwise return the second option
